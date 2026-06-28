@@ -1,7 +1,6 @@
 package br.com.ms_aeronave.controller;
 
 import br.com.ms_aeronave.model.Aeronave;
-import br.com.ms_aeronave.model.Voo;
 import br.com.ms_aeronave.service.AeronaveService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +25,11 @@ public class AeronaveController {
     }
 
     // RF13 + RF14
+    /*
     @PutMapping("/associar")
     public Voo associar(@RequestParam Long vooId, @RequestParam Long aeronaveId) {
         return service.associarAeronave(vooId, aeronaveId);
     }
+
+     */
 }

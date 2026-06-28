@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: postgres_aeronave
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: ms_aeronave
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - aeroporto-network
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ms_aeronave"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ms_aeronave:
+    build: .
+
+    container_name: ms_aeronave
+
+    restart: always
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ms_aeronave
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+
+    networks:
+      - aeroporto-network
+
+networks:
+  aeroporto-network:
+
+volumes:
+  postgres_data:

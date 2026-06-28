@@ -3,6 +3,7 @@ package br.com.ms_aeronave.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Aeronave {
@@ -15,11 +16,7 @@ public class Aeronave {
     private String fabricante;
     private Integer capacidade;
 
-    /*
-    @OneToMany(mappedBy = "aeronave")
-    private List<Voo> voos;
-
-     */
+    private UUID voo;
 
 
     public Long getId() {
